@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Gallery Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        header {
+            background-color: #fff;
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            margin-top: 0.5rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        .gallery {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .artwork {
+            background-color: #fff;
+            padding: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .artwork:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+
+        .artwork img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .artwork-info {
+            padding: 1rem 0;
+        }
+
+        .artwork-info h3 {
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+
+        .artwork-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        footer {
+            background-color: #fff;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid #ddd;
+        }
+
+        footer p {
+            color: #666;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ARTIST NAME</h1>
+        <p>Contemporary Visual Art</p>
+    </header>
+
+    <div class="gallery">
+        <div class="artwork" onclick="openModal('https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=800')">
+            <img src="https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=400" alt="Abstract Art 1">
+            <div class="artwork-info">
+                <h3>Sunset Dreams</h3>
+                <p>Acrylic on Canvas, 2024</p>
+            </div>
+        </div>
+
+        <div class="artwork" onclick="openModal('https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=800')">
+            <img src="https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=400" alt="Abstract Art 2">
+            <div class="artwork-info">
+                <h3>Urban Flow</h3>
+                <p>Mixed Media, 2024</p>
+            </div>
+        </div>
+
+        <div class="artwork" onclick="openModal('https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800')">
+            <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400" alt="Abstract Art 3">
+            <div class="artwork-info">
+                <h3>Ocean Whispers</h3>
+                <p>Oil on Canvas, 2023</p>
+            </div>
+        </div>
+
+        <div class="artwork" onclick="openModal('https://images.unsplash.com/photo-1549887534-1541e9326642?w=800')">
+            <img src="https://images.unsplash.com/photo-1549887534-1541e9326642?w=400" alt="Abstract Art 4">
+            <div class="artwork-info">
+                <h3>Golden Hour</h3>
+                <p>Acrylic on Canvas, 2023</p>
+            </div>
+        </div>
+
+        <div class="artwork" onclick="openModal('https://images.unsplash.com/photo-1536924940846-227afb31e2a5?w=800')">
+            <img src="https://images.unsplash.com/photo-1536924940846-227afb31e2a5?w=400" alt="Abstract Art 5">
+            <div class="artwork-info">
+                <h3>Ethereal Motion</h3>
+                <p>Digital Art, 2024</p>
+            </div>
+        </div>
+
+        <div class="artwork" onclick="openModal('https://images.unsplash.com/photo-1555098542-84a5a3a060c0?w=800')">
+            <img src="https://images.unsplash.com/photo-1555098542-84a5a3a060c0?w=400" alt="Abstract Art 6">
+            <div class="artwork-info">
+                <h3>Mountain Echo</h3>
+                <p>Watercolor, 2023</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal" class="modal" onclick="closeModal()">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImg">
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Artist Name. All rights reserved.</p>
+        <p>contact@artistname.com</p>
+    </footer>
+
+    <script>
+        function openModal(imgSrc) {
+            const modal = document.getElementById('modal');
+            const modalImg = document.getElementById('modalImg');
+            modal.style.display = 'flex';
+            modalImg.src = imgSrc;
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
